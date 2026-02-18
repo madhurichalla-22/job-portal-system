@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+    Job Portal - Candidate Dashboard
+</div>
+
+<div class="container">
+    <a href="applications.html" style="float:right;">My Applications</a>
+    <a href="resume-upload.html" style="float:right; margin-right:10px;">
+Upload Resume
+</a>
+
+    <h2>Available Jobs</h2>
+</div>
+<script>
+
+async function loadJobs() {
+    try {
+        const res = await fetch("http://localhost:8131/job/all");
+
+        const jobs = await res.json();
+
+        const jobsDiv = document.getElementById("jobsList");
+
+        jobsDiv.innerHTML = "";
+
+        jobs.forEach(job => {
+            jobsDiv.innerHTML += `
+                <div class="job-card">
+                    <h3>${job.title}</h3>
+                    <p>${job.description}</p>
+                    <p><b>Location:</b> ${job.location}</p>
+                    <p><b>Salary:</b> ${job.salary}</p>
+                    <button onclick="applyJob(${job.id})">Apply</button>
+                </div>
+            `;
+        });
+
+    } catch (e) {
+        alert("Cannot load jobs. Backend not connected.");
+    }
+}
+
+</script>
+<div id="jobList"></div>
+
+<script src="../api.js"></script>
+<script src="../auth.js"></script>
+<script src="../job.js"></script>
+<script src="../application.js"></script>
+
+<script>
+   loadJobs();
+</script>
+
+
+</body>
+</html>

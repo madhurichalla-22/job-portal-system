@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<h1>Admin Dashboard</h1>
+
+<!-- NAV LINKS -->
+<a href="jobs.html">View Jobs</a>
+<br><br>
+
+<a href="candidate-dashboard.html">View Candidates</a>
+<br><br>
+
+<h2>Verify Employers</h2>
+
+<button onclick="verifyEmployer(2)">Verify Employer</button>
+
+<script>
+
+async function verifyEmployer(id){
+    try{
+        await fetch(`http://localhost:8131/admin/verify/${id}`,{
+            method:"PUT"
+        });
+
+        alert("Employer Verified");
+    }
+    catch(e){
+        alert("Error verifying employer");
+    }
+}
+
+</script>
+
+</body>
+</html>

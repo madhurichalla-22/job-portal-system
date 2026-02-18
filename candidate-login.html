@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Candidate Login</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<h2>Candidate Login</h2>
+
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button onclick="loginCandidate()">Login</button>
+
+<br><br>
+
+<a href="candidate-register.html">
+    <button>Create Account</button>
+</a>
+
+<script src="../api.js"></script>
+<script src="../auth.js"></script>
+
+<script>
+async function loginCandidate() {
+
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+
+try {
+
+const response = await fetch(
+`http://localhost:8131/candidate/login?email=${email}&password=${password}`,
+{ method: "POST" }
+);
+
+if(response.ok){
+
+const candidate = await response.json();
+localStorage.setItem("candidateId", candidate.id);
+
+alert("Login successful");
+window.location.href="candidate-dashboard.html";
+
+}else{
+alert("Invalid email or password");
+}
+
+}catch(e){
+alert("Backend server not running");
+}
+}
+</script>
+
+</body>
+</html>
+

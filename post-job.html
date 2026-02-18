@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Post Job</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Post Job</h2>
+
+<input id="title" placeholder="Job Title">
+<input id="description" placeholder="Description">
+<input id="location" placeholder="Location">
+<input id="salary" placeholder="Salary">
+
+<button onclick="postJob()">Submit</button>
+
+</div>
+
+<script>
+
+async function postJob(){
+
+    const employerId = localStorage.getItem("employerId");
+
+    const job = {
+        title: document.getElementById("title").value,
+        description: document.getElementById("description").value,
+        location: document.getElementById("location").value,
+        salary: document.getElementById("salary").value
+    };
+
+    await fetch(
+        `http://localhost:8131/job/post/${employerId}`,
+        {
+            method:"POST",
+            headers:{ "Content-Type":"application/json" },
+            body:JSON.stringify(job)
+        }
+    );
+
+    alert("Job Posted!");
+    window.location="employer-dashboard.html";
+}
+
+</script>
+<script src="../api.js"></script>
+<script src="../job.js"></script>
+</body>
+</html>

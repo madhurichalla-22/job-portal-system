@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Jobs</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<div id="navbar"></div>
+
+<body>
+
+<h1>Available Jobs</h1>
+
+<div id="jobs"></div>
+
+<script src="js/api.js"></script>
+
+<script>
+async function loadJobs(){
+    const jobs = await getAllJobs();
+    const container=document.getElementById("jobs");
+
+    jobs.forEach(job=>{
+        container.innerHTML+=`
+        <div>
+            <h3>${job.title}</h3>
+            <p>${job.description}</p>
+        </div>`;
+    });
+}
+
+window.onload=loadJobs;
+</script>
+<script src="../api.js"></script>
+<script src="../auth.js"></script>
+
+</body>
+</html>

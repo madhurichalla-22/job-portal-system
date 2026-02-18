@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employer Register</title>
+</head>
+<body>
+
+<h2>Employer Register</h2>
+
+<input type="text" id="name" placeholder="Company Name"><br><br>
+<input type="email" id="email" placeholder="Email"><br><br>
+<input type="password" id="password" placeholder="Password"><br><br>
+
+<button onclick="registerEmployer()">Register</button>
+
+<script>
+async function registerEmployer() {
+
+    const data = {
+        name: document.getElementById("name").value,
+        email: document.getElementById("email").value,
+        password: document.getElementById("password").value
+    };
+
+    const response = await fetch("http://localhost:8131/employer/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    if(response.ok){
+        alert("Employer Registered Successfully");
+        window.location.href="employer-login.html";
+    } else {
+        alert("Registration failed");
+    }
+}
+</script>
+
+</body>
+</html>

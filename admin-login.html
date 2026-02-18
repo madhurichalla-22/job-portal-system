@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Admin Login</h2>
+
+    <input type="text" id="email" placeholder="Admin Email">
+    <input type="password" id="password" placeholder="Password">
+
+    <button onclick="loginAdmin()">Login</button>
+</div>
+<a href="admin-register.html">Create Admin Account</a>
+
+<script>
+
+async function loginAdmin(){
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    const res = await fetch(
+        `http://localhost:8131/admin/login?email=${email}&password=${password}`,
+        {method:"POST"}
+    );
+
+    if(res.status==200){
+        const admin = await res.json();
+
+        localStorage.setItem("adminId", admin.id);
+
+        window.location="admin-dashboard.html";
+    }else{
+        alert("Invalid admin login");
+    }
+}
+
+</script>
+<script src="../api.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Candidate Register</title>
+</head>
+
+<body>
+
+<h2>Candidate Registration</h2>
+
+<input id="name" placeholder="Full Name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button onclick="registerCandidate()">Register</button>
+
+<script>
+async function registerCandidate(){
+
+const name=document.getElementById("name").value;
+const email=document.getElementById("email").value;
+const password=document.getElementById("password").value;
+
+try{
+
+const response = await fetch("http://localhost:8131/candidate/register",{
+method:"POST",
+headers:{ "Content-Type":"application/json" },
+body: JSON.stringify({name,email,password})
+});
+
+if(response.ok){
+alert("Registration successful");
+window.location.href="candidate-login.html";
+}else{
+alert("Registration failed");
+}
+
+}catch(e){
+alert("Backend server not running");
+}
+
+}
+</script>
+
+
+</body>
+</html>

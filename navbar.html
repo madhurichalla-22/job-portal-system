@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<div class="navbar">
+   Job Portal |
+   <a href="../index.html" style="color:white">Home</a> |
+   <a href="../candidate/login.html" style="color:white">Candidate</a> |
+   <a href="../employer/login.html" style="color:white">Employer</a> |
+   <a href="../admin/login.html" style="color:white">Admin</a>
+   <div id="navbar"></div>
+
+<script>
+fetch("../navbar.html")
+  .then(res => res.text())
+  .then(data => document.getElementById("navbar").innerHTML = data);
+</script>
+</div>
+</html>

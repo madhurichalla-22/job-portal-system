@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload Resume</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+
+<div class="navbar">
+    Job Portal - Upload Resume
+</div>
+
+<div class="container">
+    <h2>Upload Resume</h2>
+
+    <input type="file" id="resumeFile">
+    <br><br>
+
+    <button onclick="uploadResume()">Upload</button>
+</div>
+
+<script src="../api.js"></script>
+<script src="../auth.js"></script>
+
+<script>
+
+async function uploadResume() {
+
+    const candidateId = localStorage.getItem("candidateId");
+
+    if (!candidateId) {
+        alert("Please login first");
+        window.location = "candidate-login.html";
+        return;
+    }
+
+    const fileInput = document.getElementById("resumeFile");
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert("Please select file");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    try {
+
+        const res = await fetch(
+            `http://localhost:8131/candidate/upload-resume/${candidateId}`,
+            {
+                method: "POST",
+                body: formData
+            }
+        );
+
+        const msg = await res.text();
+        alert(msg);
+
+    } catch (err) {
+        alert("Error uploading resume");
+    }
+}
+
+</script>
+
+</body>
+</html>
